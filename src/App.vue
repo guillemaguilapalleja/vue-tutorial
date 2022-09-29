@@ -1,25 +1,33 @@
 <template>
-  <HelloWorld msg="Hello from parent"/>
+  <div class="main">
+    <Top></Top>
+    <div style="display: flex; height: 50%">
+      <Left></Left>
+      <Right></Right>
+    </div>
+    <Bottom></Bottom>
+  </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import { defineComponent } from 'vue';
+import Top from './components/Top.vue';
+import Left from './components/Left.vue';
+import Right from './components/Right.vue';
+import Bottom from './components/Bottom.vue';
 
-export default {
-  name: 'App',
-  components: {
-    HelloWorld
-  }
-}
+export default defineComponent({
+    setup() {
+        return {};
+    },
+    components: { Top, Left, Right, Bottom }
+})
 </script>
 
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
+<style scoped>
+  .main {
+    border-style: solid;
+    height: 600px;
+  }
+
 </style>
