@@ -1,6 +1,6 @@
 <template>
   <button v-if="!connected" class="myButtonConnect" @click="toggle">Connect</button>
-  <button v-if="connected" class="myButtonDisconnect" @click="toggle">Disonnect</button>
+  <button v-if="connected" class="myButtonDisconnect" @click="toggle">Disconnect</button>
   <div v-if="connected" class="main">
     <Top></Top>
     <div style="display: flex; height: 50%">
