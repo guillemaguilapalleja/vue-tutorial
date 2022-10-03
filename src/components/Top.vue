@@ -1,8 +1,9 @@
 <template>
     <div class="topStyle">
         <div style="margin-left: 25%">
-            <b-button @click="primaryClicked" style="margin: 1%; width: 15%" variant="primary">Primary</b-button>
-            <b-button style="margin: 1%; width: 15%" variant="secondary">Secondary</b-button>
+            <b-button @click="AlertClicked" style="margin: 1%; width: 15%" variant="primary">Alert</b-button>
+            <b-button @click="showParametersPopUp = true" style="margin: 1%; width:15%" variant="secondary">Parameters</b-button>
+            <Parameters v-if="showParametersPopUp" @close="closeParameters"></Parameters>
             <b-button style="margin: 1%; width: 15%" variant="success">Success</b-button>
             <b-button style="margin: 1%; width: 15%" variant="danger">Danger</b-button>
         </div>
@@ -17,24 +18,44 @@
 </template>
     
 <script>
-import { defineComponent, ref } from 'vue'
+import { defineComponent, ref, inject } from 'vue'
+import Swal from 'sweetalert2'
+import Parameters from './Parameters.vue';
 
 export default defineComponent({
+    components:{
+        Parameters
+    },
     setup () {
+        const emitter = inject('emitter');
+
         let username = ref(undefined);
         let age = ref(undefined);
-        function primaryClicked(){
-            console.log("primary button clicked")
+        let showParametersPopUp = ref(false);
+
+        function AlertClicked(){
+            Swal.fire("Primary button clicked");
         }
+
         function InputUsername(){
             console.log('name: ', username.value, ' age: ', age.value);
+            emitter.emit('newUser', {'name': username.value, 'age': age.value});
+            username.value = undefined;
+            age.value = undefined;
+        }
+
+        function closeParameters(){
+            showParametersPopUp.value = false;
         }
 
         return {
-            primaryClicked,
+            AlertClicked,
             InputUsername,
             username,
-            age
+            age,
+            emitter,
+            showParametersPopUp,
+            closeParameters
         }
     }
 })
