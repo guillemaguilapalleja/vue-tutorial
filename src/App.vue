@@ -1,9 +1,9 @@
 <template>
-  <button v-if="!connected" class="myButtonConnect" @click="toggle">Connect</button>
-  <button v-if="connected" class="myButtonDisconnect" @click="toggle">Disconnect</button>
-  <div v-if="connected" class="main">
+  <button v-if = "!connected" class = "myButtonConnect" @click = "toggle">Connect</button>
+  <button v-if = "connected" class = "myButtonDisconnect" @click = "toggle">Disconnect</button>
+  <div v-if = "connected" class ="main">
     <Top></Top>
-    <div style="display: flex; height: 50%">
+    <div style = "display: flex; height: 50%">
       <Left></Left>
       <Right></Right>
     </div>
@@ -17,39 +17,44 @@ import Top from './components/Top.vue';
 import Left from './components/Left.vue';
 import Right from './components/Right.vue';
 import Bottom from './components/Bottom.vue';
-
 export default defineComponent({
-    setup() {
-      let connected = ref(false)
-      function toggle(){
-        connected.value = !connected.value
-      }
-        return {
-          toggle,
-          connected
-        };
-    },
-    components: { Top, Left, Right, Bottom }
-})
+  name: 'App',
+  components: {
+    Top,
+    Left,
+    Right,
+    Bottom
+  },
+  setup () {
+    let connected = ref (false)
+    function toggle () {
+      connected.value = !connected.value;
+    }
+    return {
+      toggle,
+      connected
+      
+    }
+  }
+});
 </script>
 
-<style scoped>
+<style>
   .main {
-    height: 600px;
+    height: 900px;
   }
   .myButtonConnect {
-    width: 80%;
-    background-color: red;
-    color:white;
+    width : 80%;
+    background-color: brown;
+    color : white;
     margin-left: 10%;
-    margin-bottom: 5%;
+    margin-bottom: 1%
   }
   .myButtonDisconnect {
-    width: 80%;
-    background-color: blue;
-    color:white;
+    width : 80%;
+    background-color: rgb(77, 42, 165);
+    color : white;
     margin-left: 10%;
-    margin-bottom: 1%;
+    margin-bottom: 1%
   }
-
 </style>

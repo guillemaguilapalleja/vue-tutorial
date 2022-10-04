@@ -2,9 +2,9 @@
     <div class="popup">
         <div class="popup-inner">
             <h1 style="text-align: center ; margin-bottom: 5%">Parameters</h1>
-
+           
             <div>
-
+                
                 <b-form-group
                     label="Name:"
                     label-for="nested-street"
@@ -39,7 +39,7 @@
                         <b-card bg-variant="light" inline>
                         <b-form-group label="CheckBox Options:" v-slot="{ ariaDescribedby }"> 
                         <b-form-checkbox-group
-
+                            
                             id="checkbox-group-1"
                             v-model="selected"
                             :aria-describedby="ariaDescribedby"
@@ -54,50 +54,74 @@
                 </div>
 
 
-
+    
             </div>
 
         <b-button style="width:30%;margin-left:20%" @click="writeParameters" variant="warning" size = "lg">Send parameters</b-button>
         <b-button style="width:20%;margin-left:10%" @click="close" variant="danger" size = "lg">Close</b-button>
+
         </div>
     </div>
 </template>
 
 <script>
-import { ref } from 'vue';
-
+import {ref, inject} from 'vue'
+import Swal from 'sweetalert2'
 export default {
-    setup (props, context) {
-        let name = ref(undefined);
-        let speed = ref(undefined);
+    setup (props,context) {
+        let name = ref (undefined)
+        let speed = ref (undefined)
         let radioButtonSelected = ref (undefined)
-        let checkBoxOptions = ref ( [
+        let checkBoxOptions= ref ( [
           { text: 'Orange', value: 'orange' },
           { text: 'Apple', value: 'apple' },
           { text: 'Pineapple', value: 'pineapple' },
           { text: 'Grape', value: 'grape'},
          { text: 'Otro', value: 'otro'}
         ]);
-        let selected = ref(undefined);
+        let selected = ref (undefined)
+        let client = inject('mqttClient');
         function close() {
-            context.emit('close')
+            context.emit('close')  
         }
-
-        function writeParameters(){
-            console.log('name: ', name.value)
-            console.log('speed: ', speed.value)
-            console.log('Radio button selected: ', radioButtonSelected.value)
-            console.log('Option selected: ', selected.value)
+        function writeParameters () {
+            console.log ('name: ', name.value)
+            console.log ('speed: ', speed.value)
+            console.log ('radioButtonSelected: ', radioButtonSelected.value)
+            console.log ('selected: ', selected.value)
+            const parameters = {
+                selected: selected.value,
+                radioButtonSelected: radioButtonSelected.value,
+                name: name.value,
+                speed: speed.value
+            }
+            
+            Swal.fire({
+                title: "Write parameters?",
+                text: "Are you sure? You won't be able to revert this!",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                confirmButtonText: "Yes, write parameters!"
+            }).then((result) => { // <--
+                if (result.value) { // <-- if confirmed
+                    let message =JSON.stringify (parameters)
+                    client.publish("writeParameters", message);
+                    Swal.fire('Done!');
+                    context.emit('close')  
+                }
+            });
         }
-
+        
         return {
             close,
+            writeParameters,
+            radioButtonSelected,
             name,
             speed,
-            radioButtonSelected,
             checkBoxOptions,
             selected,
-            writeParameters
+            client
         }
     }
 }
