@@ -5199,6 +5199,11 @@
   dependencies:
     "is-wsl" "^1.1.0"
 
+"opencv.js@^1.2.1":
+  "integrity" "sha512-+ji5Pk3eyz+RRSeZr2kLZNJpjsKoGyPJOjFWng7+Cuq9ylHakBqJMxDGlBW1+qdju3k8DadWOiHJ6JaF28UpKA=="
+  "resolved" "https://registry.npmjs.org/opencv.js/-/opencv.js-1.2.1.tgz"
+  "version" "1.2.1"
+
 "opener@^1.5.1":
   "integrity" "sha512-ur5UIdyw5Y7yEj9wLzhqXiy6GZ3Mwx0yGI+5sMn2r0N0v3cKJvUmFH5yPP+WXh9e0xfyzyJX95D8l088DNFj7A=="
   "resolved" "https://registry.npmjs.org/opener/-/opener-1.5.2.tgz"
