@@ -9,11 +9,13 @@
   },
   "dependencies": {
     "@popperjs/core": "^2.11.6",
+    "axios": "^1.0.0",
     "bootstrap": "^5.2.0",
     "bootstrap-icons": "^1.9.1",
     "bootstrap-icons-vue": "^1.8.1",
     "bootstrap-vue-3": "^0.2.12",
     "core-js": "^3.6.5",
+    "leaflet": "^1.9.2",
     "mitt": "^3.0.0",
     "mqtt": "^4.3.7",
     "opencv.js": "^1.2.1",
